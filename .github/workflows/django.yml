@@ -38,4 +38,4 @@ jobs:
             # Pull and run the Docker image
             ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/django_image:latest
-            sudo docker restart ${{ secrets.DOCKER_USERNAME }}/django_image
+            sudo docker restart flamboyant_villani
