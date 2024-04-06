@@ -44,6 +44,7 @@ jobs:
           
       - name: Push Docker Image To Registry
         run: |
+          docker build -t django_image .
           docker tag django_image ${{ secrets.DOCKER_USERNAME }}/django_image:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/django_image:latest
 
