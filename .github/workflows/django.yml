@@ -28,6 +28,7 @@ jobs:
         run: |
           if sudo docker ps -f "name=flamboyant_villani" --format "{{.Names}}" | grep -q "${{ secrets.DOCKER_USERNAME }}/django_image:latest"; then
             echo "Container is already running"
+            echo "::set-output name=container_running::true"
             sudo docker restart flamboyant_villani
           else
             echo "Container is not running"
