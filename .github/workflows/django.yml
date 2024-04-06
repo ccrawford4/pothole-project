@@ -44,5 +44,5 @@ jobs:
           git pull origin main
           python manage.py migrate
           python manage.py collectstatic --noinput
-          sudo systemctl restart your_django_service
+          sudo systemctl restart project
     
