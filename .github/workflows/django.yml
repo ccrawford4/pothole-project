@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/pot-hole-project/
-            git pull          
+            sudo git pull          
             echo "Building and restarting the container"        
             sudo docker-compose up --build -d
 
