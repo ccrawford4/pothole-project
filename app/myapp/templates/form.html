@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM</title>
+    <link rel="stylesheet" href="form.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Pothole Registry Form</h1>
+    <form method="POST" id="potholeForm">
+        <div class="input-wrapper">
+            <input
+                    type="text"
+                    id="address"
+                    class="form-input"
+                    placeholder="Address"
+                    autocomplete="given-address"
+            >
+            <label
+                    for="address"
+                    class="form-label"
+            >
+                Address
+            </label>
+        </div>
+        <div class="input-wrapper">
+            <label for="birthday">Date:</label>
+            <input type="date" id="Date" name="Date">
+        </div>
+        <div class="input-wrapper md:span-2">
+            <label for="imageUpload">Upload an Image:</label>
+            <input type="file" id="imageUpload" name="imageFile">
+            <input type="submit" value="Upload">
+        </div>
+        <button
+                type="submit"
+                class="btn md:span-2"
+        >Submit Form
+        </button>
+    </form>
+</div>
+<script>
+    document.getElementById('potholeForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var address = document.getElementById('address').value;
+        var url = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address);
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var result = data[0];
+                    var latitude = result.lat;
+                    var longitude = result.lon;
+                    console.log('Latitude:', latitude);
+                    console.log('Longitude:', longitude);
+                } else {
+                    console.error('No results found for the address:', address);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching geocoding data:', error);
+            });
+    });
+</script>
+</body>
+</html>
