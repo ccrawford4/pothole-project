@@ -7,7 +7,7 @@ class Report(models.Model):
     Address = models.CharField(max_length=100)
     Date = models.DateField()
     Coordinates = models.CharField(max_length=100)
-    image = models.JSONField()
+    image = models.JSONField(null=True)
 
 # For every unit (as in like an area thats of high severity, one block?)
 # Has an address range, a severity score, and an array of images

@@ -6,30 +6,38 @@
     <title>Database Tables</title>
 </head>
 <body>
-    <h1>Table 1</h1>
+    <h1>Reports</h1>
     <table>
         <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
+            <th>Address</th>
+            <th>Date</th>
+            <th>Coordinates</th>
+            <th>Image</th>
         </tr>
-        {% for item in table1_data %}
+        {% for report in report_data %}
         <tr>
-            <td>{{ item.column1 }}</td>
-            <td>{{ item.column2 }}</td>
+            <td>{{ report.Address }}</td>
+            <td>{{ report.Date }}</td>
+            <td>{{ report.Coordinates }}</td>
+            <td>{{ report.Image }}</td>
         </tr>
         {% endfor %}
     </table>
 
-    <h1>Table 2</h1>
+    <h1>Units</h1>
     <table>
         <tr>
-            <th>Column 3</th>
-            <th>Column 4</th>
+            <th>Address Range Low</th>
+            <th>Address Range High</th>
+            <th>Severity Score</th>
+            <th>Images</th>
         </tr>
-        {% for item in table2_data %}
+        {% for unit in unit_data %}
         <tr>
-            <td>{{ item.column3 }}</td>
-            <td>{{ item.column4 }}</td>
+            <td>{{ unit.Address_range_low }}</td>
+            <td>{{ unit.Address_range_high }}</td>
+            <td>{{ unit.severity }}</td>
+            <td>{{ unit.images }}</td>
         </tr>
         {% endfor %}
     </table>
