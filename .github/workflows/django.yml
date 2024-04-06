@@ -40,7 +40,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /path/to/your/django/project
+          cd ~/pot-hole-project/app
           git pull origin main
           python manage.py migrate
           python manage.py collectstatic --noinput
