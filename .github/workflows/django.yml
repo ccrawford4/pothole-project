@@ -36,17 +36,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Login to Docker Hub
+      - name: Push Docker Image to Registry
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          
-      - name: Push Docker Image To Registry
-        run: |
-          sudo docker build -t django_image .
-          sudo docker tag django_image ${{ secrets.DOCKER_USERNAME }}/django_image:latest
-          sudo docker push ${{ secrets.DOCKER_USERNAME }}/django_image:latest
+          script: |
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            sudo docker build -t django_image .
+            sudo docker tag django_image ${{ secrets.DOCKER_USERNAME }}/django_image:latest
+            sudo docker push ${{ secrets.DOCKER_USERNAME }}/django_image:latest
 
       - name: SSH into EC2 and deploy Docker container
         uses: appleboy/ssh-action@master
