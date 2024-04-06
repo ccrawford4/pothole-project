@@ -44,9 +44,9 @@ jobs:
           
       - name: Push Docker Image To Registry
         run: |
-          docker build -t django_image .
-          docker tag django_image ${{ secrets.DOCKER_USERNAME }}/django_image:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/django_image:latest
+          sudo docker build -t django_image .
+          sudo docker tag django_image ${{ secrets.DOCKER_USERNAME }}/django_image:latest
+          sudo docker push ${{ secrets.DOCKER_USERNAME }}/django_image:latest
 
       - name: SSH into EC2 and deploy Docker container
         uses: appleboy/ssh-action@master
@@ -56,8 +56,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-            docker pull ${{ secrets.DOCKER_USERNAME }}/django_image:latest
-            docker run -d -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/django_image:latest
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/django_image:latest
+            sudo docker run -d -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/django_image:latest
 
 
     
