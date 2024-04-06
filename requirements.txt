@@ -24,7 +24,6 @@ PyMySQL==1.1.0
 pydotenv
 mysql-connector-python==8.0.21
 packaging==23.2
-Pillow==10.0.1
 protobuf==3.12.4
 pycparser==2.20
 pydantic==2.4.2
