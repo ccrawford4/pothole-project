@@ -1,0 +1,7 @@
+version: '3'
+services:
+  flamboyant_villani:
+    image: ${DOCKER_USERNAME}/django_image:latest
+    ports:
+      - "80:8000"
+    restart: always
