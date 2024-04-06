@@ -55,9 +55,11 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            # Log in to Docker Hub
+            sudo docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            
+            # Pull and run the Docker image
             ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/django_image:latest
             sudo docker run -d -p 80:8000 ${{ secrets.DOCKER_USERNAME }}/django_image:latest
-
-
     
