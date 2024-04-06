@@ -13,6 +13,6 @@ class Report(models.Model):
 # Has an address range, a severity score, and an array of images
 class Unit(models.Model):
     Address_range_low = models.CharField(max_length=100)
-    Address_range_igh = models.CharField(max_length=100)
+    Address_range_high = models.CharField(max_length=100)
     severity = models.FloatField()
-    images = models.JSONField()
+    images = models.JSONField(null=True)

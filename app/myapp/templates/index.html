@@ -1,0 +1,37 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Tables</title>
+</head>
+<body>
+    <h1>Table 1</h1>
+    <table>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+        </tr>
+        {% for item in table1_data %}
+        <tr>
+            <td>{{ item.column1 }}</td>
+            <td>{{ item.column2 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Table 2</h1>
+    <table>
+        <tr>
+            <th>Column 3</th>
+            <th>Column 4</th>
+        </tr>
+        {% for item in table2_data %}
+        <tr>
+            <td>{{ item.column3 }}</td>
+            <td>{{ item.column4 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
