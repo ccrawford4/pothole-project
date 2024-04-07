@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Report, Unit
+from .models import Report, Unit, UnitForm, ReportForm
 import requests
 import os
 import pygeodesic.geodesic as geodesic
@@ -87,15 +87,25 @@ def create_unit(report_data):
 @csrf_exempt
 def update_unit_frequency(request):
     try:
-        unit_id = request.POST.get('unit_id')
-        unit = Unit.objects.get(id=unit_id)
-        unit.frequency += 1
-        unit.save()
-        return JsonResponse({'message': 'Unit frequency updated successfully'})
+        if request.method == 'POST':
+            unit_id = request.POST.get('unit_id')
+            unit = Unit.objects.get(id=unit_id)
+            unit.frequency += 1
+
+            unit.save()
+            unit.severity = unit.flow_count * unit.frequency
+            form = UnitForm(request.POST, instance=unit)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'message': 'Unit frequency updated successfully'})
+            else:
+                    return JsonResponse(form.errors, status=400)
+        else:
+            return JsonResponse({'message': 'Invalid request method'}, status=405)
     except Unit.DoesNotExist:
-        return JsonResponse({'message': 'Unit not found'}, status=404)
+            return JsonResponse({'message': 'Unit not found'}, status=404)
     except Exception as e:
-        return JsonResponse({'message': f'Failed to update unit frequency: {str(e)}'}, status=500)
+            return JsonResponse({'message': f'Error updating unit frequency: {str(e)}'}, status=500)
     
 @csrf_exempt
 def update_unit_data(report_data):

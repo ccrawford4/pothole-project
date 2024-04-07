@@ -34,7 +34,7 @@
         </tr>
         {% for unit in unit_data %}
         <tr>
-            <td>{{ unit.severity }}</td>
+            <td>{{ unit.frequency }}</td>
             <td>{{ unit.images }}</td>
             <button onclick="onButtonClick('{{ unit.id }}')">Update Unit Frequency</button>
         </tr>
@@ -59,7 +59,7 @@
         console.log("Unit ID: " + unit_id);
         $.ajax({
             url: 'update-unit-frequency',
-            type: 'POST',
+            method: 'POST',
             data: {
                 'unit_id': unit_id
             },
