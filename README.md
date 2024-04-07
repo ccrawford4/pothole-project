@@ -1,4 +1,4 @@
-# pot-hole-project
+# pothole-project
 A comprehensive solution to identifying, evaluating, and addressing pot holes in an urban environment 
 
 # LOCAL DEVELOPMENT
