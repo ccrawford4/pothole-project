@@ -4,6 +4,8 @@ from .models import Report, Unit
 import requests
 import os
 import pygeodesic.geodesic as geodesic
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -39,7 +41,7 @@ def is_within_unit(report, unit):
     and the format of your addresses/coordinates.
     """
     # Assuming coordinates are stored as "latitude,longitude"
-    report_coords = tuple(map(float, report.Coordinates.split(',')))
+    report_coords = tuple(map(float, report.coordinates.split(',')))
     
     # Example check - this part needs to be tailored to your application
     # For simplicity, let's say we have the center coords of the unit and a radius
@@ -53,7 +55,7 @@ def is_within_unit(report, unit):
     return distance <= unit_radius_km
 
 def calculate_flow_count(report_data):
-    point = report_data.Coordinates
+    point = report_data.coordinates
     unit = 'mph'
     thickness = 5
     API_KEY = os.environ.get('TOMTOM_API_KEY')
@@ -82,15 +84,30 @@ def create_unit(report_data):
     except:
         return False
 
-
+@csrf_exempt
+def update_unit_frequency(request):
+    try:
+        unit_id = request.POST.get('unit_id')
+        unit = Unit.objects.get(id=unit_id)
+        unit.frequency += 1
+        unit.save()
+        return JsonResponse({'message': 'Unit frequency updated successfully'})
+    except Unit.DoesNotExist:
+        return JsonResponse({'message': 'Unit not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'message': f'Failed to update unit frequency: {str(e)}'}, status=500)
+    
+@csrf_exempt
 def update_unit_data(report_data):
     try:
         unit_data = Unit.objects.all()
         for unit in unit_data:
             if is_within_unit(report_data, unit):
-                calculate_flow_count = calculate_flow_count(report_data)
+                # Assuming calculate_flow_count is a function you have defined elsewhere
+                flow_count = calculate_flow_count(report_data)  # Renamed variable
                 unit.frequency += 1
                 unit.save()
-        return True
-    except:
-        return False
+        return JsonResponse({'message': 'Unit data updated successfully'})
+    except Exception as e:  # Catch a general exception, but specific exceptions are better
+        # Log the exception or handle it appropriately
+        return JsonResponse({'message': f'Failed to update unit data: {str(e)}'}, status=500)

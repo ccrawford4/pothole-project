@@ -4,7 +4,7 @@ from django.db import models
 
 # Report signals every time a report is made (like every individual pot hole)
 class Report(models.Model):
-    Address = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
     date = models.DateField()
     image = models.JSONField(null=True)
     coordinates = models.CharField(max_length=100)
