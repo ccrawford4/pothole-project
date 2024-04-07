@@ -23,22 +23,10 @@ label {
   --_tspeed_slow: 400ms;
   --_ttype_squish: cubic-bezier(0.86, -0.1, 0.27, 1.15);
 
-  /* Light Mode */
-  --bg--light: var(--_hue) 30% 94%;
-  --txt--light: var(--_hue) 40% 5%;
-  --accent--light: var(--_hue) 55% 50%;
-  --muted--light: var(--_hue) 30% 99%;
-  /* Dark Mode */
   --bg--dark: var(--_hue) 15% 10%;
   --txt--dark: var(--_hue) 30% 88%;
   --accent--dark: var(--_hue) 50% 50%;
   --muted--dark: var(--_hue) 20% 4%;
-
-  --bg: var(--bg--light);
-  --txt: var(--txt--light);
-  --accent: var(--accent--light);
-  --muted: var(--muted--light);
-  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -48,14 +36,6 @@ label {
     --accent: var(--accent--dark);
     --muted: var(--muted--dark);
     color-scheme: dark;
-  }
-}
-
-/* prefers reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --_tspeed_slow: 50ms;
-    --_tspeed_fast: 50ms;
   }
 }
 
@@ -151,7 +131,7 @@ form {
   }
 }
 
-.btn {
+.button {
   max-width: fit-content;
   display: flex;
   place-items: center;
@@ -167,25 +147,25 @@ form {
     background-color var(--_tspeed_slow) var(--_ttype_squish);
 }
 
-.btn :where(svg, img, span) {
+.button :where(svg, img, span) {
   pointer-events: none;
 }
 
-.btn :where(svg, img) {
+.button :where(svg, img) {
   width: var(--_size);
 }
 
-.btn:where(:active, :hover) {
+.button:where(:active, :hover) {
   background-color: hsl(var(--accent) / 0.7);
   box-shadow: 0 0 0 hsl(var(--accent) / 0.3), 0 0 0 -0.1em hsl(var(--bg)),
     0 0 0 -0.2em hsl(var(--accent));
 }
 
-.btn:focus {
+.button:focus {
   outline: none;
 }
 
-.btn:focus-visible {
+.button:focus-visible {
   box-shadow: 0 0 0 hsl(var(--accent) / 0.3), 0 0 0 0.2em hsl(var(--bg)),
     0 0 0 0.4em hsl(var(--accent) / 0.7);
 }
