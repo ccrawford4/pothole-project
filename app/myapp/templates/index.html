@@ -1,8 +1,8 @@
 <!-- index.html -->
-
+{% csrf_token %}
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
     <title>Database Tables</title>
 </head>
 <body>
@@ -34,12 +34,41 @@
         </tr>
         {% for unit in unit_data %}
         <tr>
-            <td>{{ unit.Address_range_low }}</td>
-            <td>{{ unit.Address_range_high }}</td>
-            <td>{{ unit.severity }}</td>
+            <td>{{ unit.frequency }}</td>
             <td>{{ unit.images }}</td>
+            <button onclick="onButtonClick('{{ unit.id }}')">Update Unit Frequency</button>
         </tr>
         {% endfor %}
     </table>
 </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script>
+    $(document).ready(function(){
+        // Set up global AJAX settings to include CSRF token
+        $.ajaxSetup({
+            headers: {
+                'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    });
+    
+    function onButtonClick(unit_id) {
+        console.log('Button clicked');
+        console.log("Unit ID: " + unit_id);
+        $.ajax({
+            url: 'update-unit-frequency',
+            method: 'POST',
+            data: {
+                'unit_id': unit_id
+            },
+            success: function(response) {
+                console.log('Response: ' + response.message);
+            },
+            error: function(error) {
+                console.log('Error: ', error);
+            }
+        });
+    }
+</script>

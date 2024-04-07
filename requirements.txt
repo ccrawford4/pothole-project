@@ -38,3 +38,5 @@ six==1.15.0
 sqlparse==0.4.4
 stripe==6.7.0
 cryptography
+pygeodesic
+django-jquery

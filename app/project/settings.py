@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '54.193.6.157',
                  'ec2-54-193-6-157.us-west-1.compute.amazonaws.com']
 
 STATIC_ROOT = 'app/static'
+STATIC_URL = 'app/myapp/static'
 
 # Application definition
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp.apps.MyappConfig',
+    'jquery',
 ]
 
 MIDDLEWARE = [
