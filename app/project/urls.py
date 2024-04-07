@@ -21,4 +21,5 @@ urlpatterns = [
     path('data/', views.home_page, name='home_page'),
     path('admin/', admin.site.urls),
     path('home/', views.hello_world, name='hello_world'),
+    path('/update-unit-frequency/', views.update_unit_data, name='update_unit_frequency'),
 ]

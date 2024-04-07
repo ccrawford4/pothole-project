@@ -5,14 +5,16 @@ from django.db import models
 # Report signals every time a report is made (like every individual pot hole)
 class Report(models.Model):
     Address = models.CharField(max_length=100)
-    Date = models.DateField()
-    Coordinates = models.CharField(max_length=100)
+    date = models.DateField()
     image = models.JSONField(null=True)
+    coordinates = models.CharField(max_length=100)
 
 # For every unit (as in like an area thats of high severity, one block?)
 # Has an address range, a severity score, and an array of images
 class Unit(models.Model):
-    Address_range_low = models.CharField(max_length=100)
-    Address_range_high = models.CharField(max_length=100)
     severity = models.FloatField()
     images = models.JSONField(null=True)
+    frequency = models.IntegerField()
+    flow_count = models.IntegerField()
+    address = models.CharField(max_length=100)
+    radius_m = models.FloatField()

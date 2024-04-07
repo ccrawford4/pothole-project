@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
     <title>Database Tables</title>
 </head>
 <body>
@@ -38,8 +38,29 @@
             <td>{{ unit.Address_range_high }}</td>
             <td>{{ unit.severity }}</td>
             <td>{{ unit.images }}</td>
+            <button onclick="onButtonClick('{{ unit.id }}')">Update Unit Frequency</button>
         </tr>
         {% endfor %}
     </table>
 </body>
 </html>
+
+<script>
+function onButtonClick(unit_id) {
+    console.log('Button clicked');
+    console.log("Unit ID: " + unit_id);
+    jQuery.ajax({
+        url: '/update_unit_frequency',
+        type: 'POST',
+        data: {
+            unit_id: unit_id
+        },
+        success: function(response) {
+            console.log('Response: ' + response);
+        },
+        error: function(error) {
+            console.log('Error: ' + error);
+        }
+    });
+}
+</script>
